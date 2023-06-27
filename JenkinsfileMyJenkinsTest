@@ -15,7 +15,7 @@ pipeline {
     stages() {
         stage('git clone') {
             steps() {
-                if(existProjectFile()) {
+                if(existProjectFile() == true) {
                     echo 'fileExists gradlew'
                 } else {
                     echo 'no fileExists gradlew'
