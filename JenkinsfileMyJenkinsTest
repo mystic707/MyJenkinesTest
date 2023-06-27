@@ -1,9 +1,20 @@
+def existProjectFile() {
+    def exists = fileExists 'gradlew'
+
+    if (exists) {
+        echo 'Yes'
+    } else {
+        echo 'No'       
+    }
+    return exists
+}
+
 pipeline {
     agent any
     
     stages() {
         stage('git clone') {
-            if(fileExists('gradlew')) {
+            if(existProjectFile()) {
                 echo 'fileExists gradlew'
             } else {
                 echo 'no fileExists gradlew'
