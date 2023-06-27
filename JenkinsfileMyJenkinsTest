@@ -15,14 +15,16 @@ pipeline {
     stages() {
         stage('git clone') {
             steps() {
-                if(existProjectFile() == true) {
-                    echo 'fileExists gradlew'
-                } else {
-                    echo 'no fileExists gradlew'
+                script {
+                    if(existProjectFile() == true) {
+                        echo 'fileExists gradlew'
+                    } else {
+                        echo 'no fileExists gradlew'
 
-                    git 'https://github.com/mystic707/MyJenkinesTest.git'
-                // git branch: "feature/jenkinsfile_test"
-                // git branch: 'feature/jenkinsfile_test', url: 'https://github.com/mystic707/GestureControlSample.git'
+                        git 'https://github.com/mystic707/MyJenkinesTest.git'
+                    // git branch: "feature/jenkinsfile_test"
+                    // git branch: 'feature/jenkinsfile_test', url: 'https://github.com/mystic707/GestureControlSample.git'
+                    }
                 }
             }
     }
