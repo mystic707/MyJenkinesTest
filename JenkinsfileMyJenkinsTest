@@ -3,12 +3,11 @@ pipeline {
     
     stages() {
         stage('git clone') {
-            steps() {
-                if(fileExists('gradlew')) {
-                    echo 'fileExists gradlew'
-                } else {
-                    echo 'no fileExists gradlew'
-
+            if(fileExists('gradlew')) {
+                echo 'fileExists gradlew'
+            } else {
+                echo 'no fileExists gradlew'
+                steps() {
                     git 'https://github.com/mystic707/MyJenkinesTest.git'
                     // git branch: "feature/jenkinsfile_test"
                     // git branch: 'feature/jenkinsfile_test', url: 'https://github.com/mystic707/GestureControlSample.git'
