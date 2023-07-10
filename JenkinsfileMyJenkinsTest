@@ -10,13 +10,13 @@ def existProjectFile() {
 }
 
 pipeline {
-    agent any
+    agent { label 'Agent_test01' }
     
     stages() {
         stage('git clone') {
             steps() {
                 script {
-                    if(existProjectFile() == true) {
+                    if(existProjectFile() == true) {        // if와 같은 구문 사용을 위해 script 태그로 감싸주어야 한다.
                         echo 'fileExists gradlew'
                     } else {
                         echo 'no fileExists gradlew'
