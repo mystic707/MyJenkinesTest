@@ -78,7 +78,7 @@ pipeline {
                             // }
                             echo "test 002 - 004, ${contents}"
                             // printWriter.close()
-                            gradlePropFile.delete()
+                            sh 'rm gradle_tmp.properties'
 
                             echo 'test 002 - 005'
                             writeFile(file: "gradle_tmp.properties", text: contents, encoding: "UTF-8")
