@@ -29,15 +29,15 @@ pipeline {
         //     }
         // }
 
-        stage('test 001') {
-            steps() {
-                // if(existProjectFile() == true) {
-                //     git checkout feature/
-                // } else {
-                //     git 'https://github.com/mystic707/MyJenkinesTest.git'
-                // }
-            }
-        }
+        // stage('test 001') {
+        //     steps() {
+        //         if(existProjectFile() == true) {
+        //             git checkout feature/
+        //         } else {
+        //             git 'https://github.com/mystic707/MyJenkinesTest.git'
+        //         }
+        //     }
+        // }
 
         stage('test 002') {
             steps() {
