@@ -30,31 +30,35 @@ pipeline {
         // }
 
         stage('test 001') {
-            git 'https://github.com/mystic707/MyJenkinesTest.git'
+            steps() {
+                git 'https://github.com/mystic707/MyJenkinesTest.git'
+            }
         }
 
         stage('test 002') {
-            script {
-                def gradlePropFile = new File("gradle_tmp.properties")
-                        // def tmpFile = new File('gradle.properties').newWriter()
-                        def contents = ""
+            steps() {
+                script {
+                    def gradlePropFile = new File("gradle_tmp.properties")
+                            // def tmpFile = new File('gradle.properties').newWriter()
+                            def contents = ""
 
-                        // PrintWriter printWriter = new PrintWriter(tmpFile)
-                        gradlePropFile.eachLine { currentLine, lineNumber ->
-                            if(currentLine.contains("android.useAndroidX")) {
-                                // printWriter.println("publish.mode.snapshot=true")
-                                contents = contents + "android.useAndroidX=false" + "\n"
+                            // PrintWriter printWriter = new PrintWriter(tmpFile)
+                            gradlePropFile.eachLine { currentLine, lineNumber ->
+                                if(currentLine.contains("android.useAndroidX")) {
+                                    // printWriter.println("publish.mode.snapshot=true")
+                                    contents = contents + "android.useAndroidX=false" + "\n"
+                                }
+                                else {
+                                    // printWriter.println(currentLine)
+                                    contents = contents + currentLine + "\n"
+                                }
                             }
-                            else {
-                                // printWriter.println(currentLine)
-                                contents = contents + currentLine + "\n"
-                            }
-                        }
-                        // printWriter.close()
-                        gradlePropFile.delete()
+                            // printWriter.close()
+                            gradlePropFile.delete()
 
-                        writeFile(file: "gradle_tmp.properties", text: contents, encoding: "UTF-8")
+                            writeFile(file: "gradle_tmp.properties", text: contents, encoding: "UTF-8")
 
+                }
             }
         }
 
