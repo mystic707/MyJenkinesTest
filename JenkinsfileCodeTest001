@@ -42,7 +42,9 @@ pipeline {
         stage('test 002') {
             steps() {
                 script {
-                    def gradlePropFile = new File("${env.WORKSPACE}/gradle_tmp.properties")
+                    // def gradlePropFile = new File("${env.WORKSPACE}/gradle_tmp.properties")
+                    def gradlePropFile = readFile("${env.WORKSPACE}/gradle_tmp.properties")
+
                             // def tmpFile = new File('gradle.properties').newWriter()
                             def contents = ""
                             echo 'test 002 - 001'
