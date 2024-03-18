@@ -45,21 +45,26 @@ pipeline {
                     def gradlePropFile = new File("${env.WORKSPACE}/gradle_tmp.properties")
                             // def tmpFile = new File('gradle.properties').newWriter()
                             def contents = ""
+                            echo 'test 002 - 001'
 
                             // PrintWriter printWriter = new PrintWriter(tmpFile)
                             gradlePropFile.eachLine { currentLine, lineNumber ->
                                 if(currentLine.contains("android.useAndroidX")) {
                                     // printWriter.println("publish.mode.snapshot=true")
+                                    echo 'test 002 - 002'
                                     contents = contents + "android.useAndroidX=false" + "\n"
                                 }
                                 else {
                                     // printWriter.println(currentLine)
+                                    echo 'test 002 - 003'
                                     contents = contents + currentLine + "\n"
                                 }
                             }
+                            echo "test 002 - 004, ${contents}"
                             // printWriter.close()
                             gradlePropFile.delete()
 
+                            echo 'test 002 - 005'
                             writeFile(file: "gradle_tmp.properties", text: contents, encoding: "UTF-8")
 
                 }
