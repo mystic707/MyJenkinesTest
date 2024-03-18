@@ -13,28 +13,57 @@ pipeline {
     agent { label 'Agent_test01' }
     
     stages() {
-        stage('git clone') {
-            steps() {
-                script {
-                    if(existProjectFile() == true) {        // if와 같은 구문 사용을 위해 script 태그로 감싸주어야 한다.
-                        echo 'fileExists gradlew'
-                    } else {
-                        echo 'no fileExists gradlew'
+        // stage('git clone') {
+        //     steps() {
+        //         script {
+        //             if(existProjectFile() == true) {        // if와 같은 구문 사용을 위해 script 태그로 감싸주어야 한다.
+        //                 echo 'fileExists gradlew'
+        //             } else {
+        //                 echo 'no fileExists gradlew'
 
-                        git 'https://github.com/mystic707/MyJenkinesTest.git'
-                    // git branch: "feature/jenkinsfile_test"
-                    // git branch: 'feature/jenkinsfile_test', url: 'https://github.com/mystic707/GestureControlSample.git'
-                    }
-                }
-            }
-    }
+        //                 git 'https://github.com/mystic707/MyJenkinesTest.git'
+        //             // git branch: "feature/jenkinsfile_test"
+        //             // git branch: 'feature/jenkinsfile_test', url: 'https://github.com/mystic707/GestureControlSample.git'
+        //             }
+        //         }
+        //     }
+        // }
 
-        stage('git checkout main') {
-            steps() {
-                // git branch: "feature/jenkinsfile_test"
-                git branch: 'main', url: 'https://github.com/mystic707/MyJenkinesTest.git'
+        stage('test 001') {
+            git 'https://github.com/mystic707/MyJenkinesTest.git'
+        }
+
+        stage('test 002') {
+            script {
+                def gradlePropFile = new File("gradle_tmp.properties")
+                        // def tmpFile = new File('gradle.properties').newWriter()
+                        def contents = ""
+
+                        // PrintWriter printWriter = new PrintWriter(tmpFile)
+                        gradlePropFile.eachLine { currentLine, lineNumber ->
+                            if(currentLine.contains("android.useAndroidX")) {
+                                // printWriter.println("publish.mode.snapshot=true")
+                                contents = contents + "android.useAndroidX=false" + "\n"
+                            }
+                            else {
+                                // printWriter.println(currentLine)
+                                contents = contents + currentLine + "\n"
+                            }
+                        }
+                        // printWriter.close()
+                        gradlePropFile.delete()
+
+                        writeFile(file: "gradle_tmp.properties", text: contents, encoding: "UTF-8")
+
             }
         }
+
+        // stage('git checkout main') {
+        //     steps() {
+        //         // git branch: "feature/jenkinsfile_test"
+        //         git branch: 'main', url: 'https://github.com/mystic707/MyJenkinesTest.git'
+        //     }
+        // }
 
         // stage('git checkout') {
         //     steps() {
@@ -50,13 +79,13 @@ pipeline {
             }
         }
 
-        stage('App build') {
-            steps {
-                echo 'App building..'
-                script {
-                    sh "./gradlew build"
-                }
-            }
-        }
+        // stage('App build') {
+        //     steps {
+        //         echo 'App building..'
+        //         script {
+        //             sh "./gradlew build"
+        //         }
+        //     }
+        // }
     }
 }
