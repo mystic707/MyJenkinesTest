@@ -58,7 +58,7 @@ pipeline {
                                 }
                                 else {
                                     echo 'test 002 - 003'
-                                    contents = contents + currentLine + "\n"
+                                    contents = contents + line + "\n"
                                 }
                             }
 
